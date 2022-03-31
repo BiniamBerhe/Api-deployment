@@ -8,12 +8,12 @@ from sklearn.metrics import mean_squared_error
 import pickle
 
 
-def model(df):
+def model():
     """ Polynomial regression model with degree of 2 was used for the result from sklearn
     """
 
     #Load the data set and drop whats not needed
-    df = pd.read_csv('final_data.csv')
+    df = pd.read_csv('data/final_data.csv')
     df.drop(['Unnamed: 0'], axis = 1, inplace = True)
 
     #Define  X(independent variable) and Y(dependent variable)
