@@ -17,7 +17,8 @@ def model():
     df.drop(['Unnamed: 0'], axis = 1, inplace = True)
 
     #Define  X(independent variable) and Y(dependent variable)
-    X = df[['Number of bedrooms', 'Livable surface', 
+    X = df[['Locality','Number of bedrooms',
+            'Terrace', 'Livable surface', 'Elevator', 'Garden',
             'Surface of living-room', 'Surface garden']].to_numpy()
     Y = df.Price.to_numpy().reshape(-1, 1)
 
