@@ -26,4 +26,16 @@
 
 ## Usage
 - The app is available in this link https://house-pred-api.herokuapp.com/predict
-- This app was deployed on Heroku
+- Use services like https://www.postman.com/ to send post request with the correct json data
+
+## for local use 
+1. Clone the repository
+2. Navigate to the directory and type <mark>pip install requirements.txt</mark>.
+3. type python/python3 app.py and look for a page in your browser
+3. Send a json file using services like https://www.postman.com/ to send post request that is required
+
+## Deployment
+- To deploy the app locally using Docker
+1. Navigate to the directory Dockerfile and type <mark> docker build . -t image-name </mark> :this will create docker image
+2. To run a the image in a container type <mark>docker run -t image-name </mark> :this will run the app in a container
+- To deploy the app on Heroku refer to heroku.com
