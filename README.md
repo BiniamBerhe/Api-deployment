@@ -39,3 +39,6 @@
 1. Navigate to the directory Dockerfile and type <mark> docker build . -t image-name </mark> :this will create docker image
 2. To run a the image in a container type <mark>docker run -t image-name </mark> :this will run the app in a container
 - To deploy the app on Heroku refer to heroku.com
+
+## Contributors
+- Biniam Berhe
