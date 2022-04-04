@@ -28,6 +28,8 @@ d = {
 }
 
 def preprocess(input_data):
+  """A function to clean incoming json data
+    according to the model available"""
 
   #Convert json data into Pandas dataframe
   df = pd.json_normalize(input_data)

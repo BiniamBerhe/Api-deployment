@@ -31,9 +31,12 @@ def predict():
             error_response = get_error(result["data"])
 
             if error_response == "No errors found":
+                #Clean the data and return final result
                 clean_input = cleaning_data.preprocess(result['data'])
+                #Predict the price
                 y_pred = get_prediction(clean_input)
-                    
+
+                #Return the predicted price in json format   
                 return jsonify({"prediction value": y_pred})
 
             else:
