@@ -9,9 +9,10 @@ from pydantic import (
 )
 
 def get_error(json_input):
+    """A function that handles json inputs"""
 
     class Control_error(BaseModel):
-    
+        #Json schema structure
         area: PositiveInt
         property_type: str
         rooms_number: PositiveInt
@@ -20,16 +21,23 @@ def get_error(json_input):
         Elevator: bool
         land_area: PositiveInt
         garden: StrictBool
-        garden_area: PositiveInt
+        garden_area: float
         equipped_kitchen: StrictBool
-        full_address: str
-        swimming_pool: StrictBool
+        full_address: Optional[str] = None
+        swimming_pool: Optional[str] = None
         furnished: StrictBool
-        open_fire: StrictBool
+        open_fire: Optional[bool] = None
         terrace: bool
         terrace_area: PositiveInt
         facades_number: PositiveInt
-        building_state: str
+        building_state: Optional[str] = None
+
+        #handling each variable with default value
+        @validator('garden_area', allow_reuse=True)
+        def facades(cls, v):
+            if v <= -1:
+                raise ValueError(
+                    'unexpected value; Expected positive value')
 
         @validator("property_type", allow_reuse=True)
         def property_type_check(cls, v):
@@ -64,4 +72,8 @@ def get_error(json_input):
         error = Control_error(**json_input)
         return "No errors found"
     except ValidationError as e:
-        return e.json()
+        errors = {}
+        for item in e.errors():
+            errors[item["loc"][0]] = item["msg"]
+            return errors
+            #return e.json()
