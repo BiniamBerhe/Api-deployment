@@ -13,41 +13,39 @@ app = Flask(__name__)
 def home():
     return 'Server Alive'
 
-@app.route('/predict', methods = ['GET','POST'])
+@app.route('/predict', methods = ['POST'])
 def predict():
-    
-    if (request.method == 'POST'):
-        #Get the json data
-        result = request.get_json()
-
-        # Check if result is empty
-        if len(result) == 0:
-            return {
-                    "Inputs" : len(result),
-                    "Response" : "Error: Please provide your Inputs, for more info: https://house-pred-api.herokuapp.com/predict"
-                    }
-        else:
-            #Check for an error inside the the json data
-            error_response = get_error(result["data"])
-
-            if error_response == "No errors found":
-                #Clean the data and return final result
-                clean_input = cleaning_data.preprocess(result['data'])
-                #Predict the price
-                y_pred = get_prediction(clean_input)
-
-                #Return the predicted price in json format   
-                return jsonify({"prediction value": y_pred})
-
-            else:
-                return {
-                        "Error": error_response,
-                        "More info": "https://house-pred-api.herokuapp.com/predict"
-                    }
+    #Get the json data
+    result = request.get_json()
+    # Check if result is empty
+    if len(result) == 0:
+        return {
+                "Inputs" : len(result),
+                "Response" : "Error: Please provide your Inputs, for more info: https://house-pred-api.herokuapp.com/predict"
+                }
     else:
-        #The response for GET method
-        data = {
-                 "data": {
+        #Check for an error inside the the json data
+        error_response = get_error(result["data"])
+
+        if error_response == "No errors found":
+            #Clean the data and return final result
+            clean_input = cleaning_data.preprocess(result['data'])
+            #Predict the price
+            y_pred = get_prediction(clean_input)
+
+            #Return the predicted price in json format   
+            return jsonify({"prediction value": y_pred})
+
+        else:
+            return {
+                    "Error": error_response,
+                    "More info": "https://house-pred-api.herokuapp.com/predict"
+                    }
+@app.route('/predict', methods = ['GET'])
+def home_page():
+    #The response for GET method
+    data = {
+            "data": {
                         "area": 'int',
                         "property_type": "APARTMENT" " or " "HOUSE" " or " "OTHERS",
                         "rooms_number": 'int',
